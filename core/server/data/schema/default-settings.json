@@ -563,6 +563,14 @@
         "oauth_client_secret" : {
             "defaultValue": null,
             "type": "string"
+        },
+        "github_email_pattern" : {
+            "defaultValue": null,
+            "type": "string"
+        },
+        "github_org" : {
+            "defaultValue": null,
+            "type": "string"
         }
     },
     "editor": {

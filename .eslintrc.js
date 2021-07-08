@@ -2,8 +2,8 @@ const path = require('path');
 
 module.exports = {
     env: {
-        es6: true,
-        node: true
+        node: true,
+        es2020: true
     },
     plugins: ['ghost'],
     extends: [

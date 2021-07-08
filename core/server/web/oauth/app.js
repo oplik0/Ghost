@@ -1,7 +1,8 @@
 const debug = require('@tryghost/debug')('web:oauth:app');
 const {URL} = require('url');
 const passport = require('passport');
-const GoogleStrategy = require('passport-google-oauth20').Strategy;
+const GitHubStrategy = require('passport-github2').Strategy;
+const { Octokit } = require("@octokit/core");
 const express = require('../../../shared/express');
 const urlUtils = require('../../../shared/url-utils');
 const shared = require('../shared');
@@ -30,28 +31,27 @@ module.exports = function setupOAuthApp() {
      * We need to configure it on each request because clientId and secret
      * will change (when the Owner is changing these settings)
      */
-    function googleOAuthMiddleware(clientId, secret) {
+    function githubOAuthMiddleware(clientId, secret) {
         return (req, res, next) => {
             // TODO: use url config instead of the string /ghost
 
-            //Create the callback url to be sent to Google
+            //Create the callback url to be sent to GitHub
             const callbackUrl = new URL(urlUtils.getSiteUrl());
-            callbackUrl.pathname = '/ghost/oauth/google/callback';
+            callbackUrl.pathname = '/ghost/oauth/github/callback';
 
-            passport.authenticate(new GoogleStrategy({
+            passport.authenticate(new GitHubStrategy({
                 clientID: clientId,
                 clientSecret: secret,
                 callbackURL: callbackUrl.href
             }, async function (accessToken, refreshToken, profile) {
-                // This is the verify function that checks that a Google-authenticated user
+                // This is the verify function that checks that a GitHub-authenticated user
                 // is matching one of our users (or invite).
-
                 if (req.user) {
                     // CASE: the user already has an active Ghost session
                     const emails = profile.emails.filter(email => email.verified === true).map(email => email.value);
 
                     if (!emails.includes(req.user.get('email'))) {
-                        return res.redirect('/ghost/#/staff/?message=oauth-linking-failed');
+                        return res. redirect('/ghost/#/staff/?message=oauth-linking-failed');
                     }
 
                     // TODO: configure the oauth data for this user (row in the oauth table)
@@ -61,14 +61,14 @@ module.exports = function setupOAuthApp() {
                     await req.user.save();
                 } else {
                     // CASE: the user is logging-in or accepting an invite
-
                     //Find user in DB and log-in
                     //TODO: instead find the oauth row with the email use the provider id
+                    const emailRegex = new RegExp(settingsCache.get("github_email_pattern") ?? ".*@.*");
                     const emails = profile.emails.filter(email => email.verified === true);
                     if (emails.length < 1) {
                         return res.redirect('/ghost/#/signin?message=login-failed');
                     }
-                    const email = emails[0].value;
+                    const email = emails.filter(email => emailRegex.test(email.value))[0] ?? emails.filter(email => email.primary === true)[0] ?? emails[0];
 
                     let user = await models.User.findOne({
                         email: email
@@ -81,7 +81,12 @@ module.exports = function setupOAuthApp() {
                         let invite = await models.Invite.findOne({email, status: 'sent'}, options);
 
                         if (!invite || invite.get('expires') < Date.now()) {
-                            return res.redirect('/ghost/#/signin?message=login-failed');
+                            const octokit = new Octokit({ auth: accessToken });
+                            const orgs = await octokit.request("GET /user/orgs");
+                            const userInOrg = orgs.data.some(org => org.login === settingsCache.get("github_org"));
+                            if (!userInOrg) {
+                                return res.redirect('/ghost/#/signin?message=login-failed');
+                            }
                         }
 
                         //Accept invite
@@ -89,11 +94,11 @@ module.exports = function setupOAuthApp() {
                             email: email,
                             name: profile.displayName,
                             password: randomPassword(),
-                            roles: [invite.toJSON().role_id]
+                            roles: [invite?.toJSON()?.role_id ?? await models.Role.findOne({name: "Contributor"}).id]
                         }, options);
-
-                        await invite.destroy(options);
-
+                        if (!!invite) {
+                            await invite.destroy(options);
+                        }
                         // TODO: create an oauth model link to user
                     }
 
@@ -104,16 +109,17 @@ module.exports = function setupOAuthApp() {
 
                 return res.redirect('/ghost/');
             }), {
-                scope: ['profile', 'email'],
+                scope: ['read:org', 'user:email'],
                 session: false,
                 prompt: 'consent',
-                accessType: 'offline'
+                accessType: 'offline',
+                allRawEmails: true
             })(req, res, next);
         };
     }
 
     oauthApp.get('/:provider', auth.authenticate.authenticateAdminApi, (req, res, next) => {
-        if (req.params.provider !== 'google') {
+        if (req.params.provider !== 'github') {
             return res.sendStatus(404);
         }
 
@@ -121,7 +127,7 @@ module.exports = function setupOAuthApp() {
         const secret = settingsCache.get('oauth_client_secret');
 
         if (clientId && secret) {
-            return googleOAuthMiddleware(clientId, secret)(req, res, next);
+            return githubOAuthMiddleware(clientId, secret)(req, res, next);
         }
 
         res.sendStatus(404);
@@ -132,7 +138,7 @@ module.exports = function setupOAuthApp() {
         req.headers.referrer = urlUtils.getSiteUrl();
         next();
     }, auth.authenticate.authenticateAdminApi, (req, res, next) => {
-        if (req.params.provider !== 'google') {
+        if (req.params.provider !== 'github') {
             return res.sendStatus(404);
         }
 
@@ -140,7 +146,7 @@ module.exports = function setupOAuthApp() {
         const secret = settingsCache.get('oauth_client_secret');
 
         if (clientId && secret) {
-            return googleOAuthMiddleware(clientId, secret)(req, res, next);
+            return githubOAuthMiddleware(clientId, secret)(req, res, next);
         }
 
         res.sendStatus(404);
