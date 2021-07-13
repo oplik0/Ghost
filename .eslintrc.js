@@ -15,6 +15,9 @@ module.exports = {
         'no-var': 'error',
         'one-var': ['error', 'never']
     },
+    parserOptions: {
+        ecmaVersion: 2020
+    },
     overrides: [
         {
             files: 'core/server/api/canary/*',

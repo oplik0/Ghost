@@ -63,12 +63,12 @@ module.exports = function setupOAuthApp() {
                     // CASE: the user is logging-in or accepting an invite
                     //Find user in DB and log-in
                     //TODO: instead find the oauth row with the email use the provider id
-                    const emailRegex = new RegExp(settingsCache.get("github_email_pattern") ?? ".*@.*");
+                    const emailRegex = new RegExp(settingsCache.get('github_email_pattern') ?? '.*@.*');
                     const emails = profile.emails.filter(email => email.verified === true);
                     if (emails.length < 1) {
                         return res.redirect('/ghost/#/signin?message=login-failed');
                     }
-                    const email = emails.filter(email => emailRegex.test(email.value))[0].value ?? emails.filter(email => email.primary === true)[0].value ?? emails[0].value;
+                    const email = emails.filter(mail => emailRegex.test(mail.value))[0].value ?? emails.filter(mail => mail.primary === true)[0].value ?? emails[0].value;
 
                     let user = await models.User.findOne({
                         email: email
@@ -83,7 +83,7 @@ module.exports = function setupOAuthApp() {
                         if (!invite || invite.get('expires') < Date.now()) {
                             /*const octokit = new Octokit({ auth: accessToken });
                             const orgs = await octokit.request("GET /user/orgs");*/
-                            const userInOrg = profile.orgs.some(org => org.login === settingsCache.get("github_org"));
+                            const userInOrg = profile.orgs.some(org => org.login === settingsCache.get('github_org'));
                             if (!userInOrg) {
                                 return res.redirect('/ghost/#/signin?message=login-failed');
                             }
@@ -94,9 +94,9 @@ module.exports = function setupOAuthApp() {
                             email: email,
                             name: profile.username,
                             password: randomPassword(),
-                            roles: [invite?.toJSON()?.role_id ?? (await models.Role.findOne({name: "Contributor"})).id]
+                            roles: [invite?.toJSON()?.role_id ?? (await models.Role.findOne({name: 'Contributor'})).id]
                         }, options);
-                        if (!!invite) {
+                        if (invite) {
                             await invite.destroy(options);
                         }
                         // TODO: create an oauth model link to user
@@ -112,7 +112,7 @@ module.exports = function setupOAuthApp() {
                 scope: ['read:org', 'user:email', 'user'],
                 session: false,
                 prompt: 'consent',
-                accessType: 'offline',
+                accessType: 'offline'
             })(req, res, next);
         };
     }
