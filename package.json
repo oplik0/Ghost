@@ -44,12 +44,13 @@
     "fix": "yarn fix:client && yarn fix:server"
   },
   "engines": {
-    "node": "^12.22.1 || ^14.16.1",
+    "node": "^14.16.1",
     "cli": "^1.17.0"
   },
   "dependencies": {
     "@nexes/nql": "0.5.2",
     "@sentry/node": "6.9.0",
+    "@octokit/core": "^3.5.1",
     "@tryghost/adapter-manager": "0.2.14",
     "@tryghost/admin-api-schema": "2.5.0",
     "@tryghost/bookshelf-plugins": "0.1.4",
@@ -147,7 +148,7 @@
     "nodemailer": "0.7.1",
     "oembed-parser": "1.4.7",
     "passport": "0.4.1",
-    "passport-google-oauth": "2.0.0",
+    "passport-github-oauth20": "^1.0.4",
     "path-match": "1.2.4",
     "probe-image-size": "5.0.0",
     "rss": "1.2.2",

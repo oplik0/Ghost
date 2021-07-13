@@ -411,6 +411,16 @@ const defaultSettingsKeyTypes = [
         group: 'oauth'
     },
     {
+        key: 'github_email_pattern',
+        type: 'string',
+        group: 'oauth'
+    },
+    {
+        key: 'github_org',
+        type: 'string',
+        group: 'oauth'
+    },
+    {
         key: 'editor_default_email_recipients',
         type: 'string',
         group: 'editor'
