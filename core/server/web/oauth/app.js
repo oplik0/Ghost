@@ -1,8 +1,7 @@
 const debug = require('@tryghost/debug')('web:oauth:app');
 const {URL} = require('url');
 const passport = require('passport');
-const GitHubStrategy = require('passport-github2').Strategy;
-const { Octokit } = require("@octokit/core");
+const GitHubStrategy = require('passport-github-oauth20').Strategy;
 const express = require('../../../shared/express');
 const urlUtils = require('../../../shared/url-utils');
 const shared = require('../shared');
@@ -42,7 +41,8 @@ module.exports = function setupOAuthApp() {
             passport.authenticate(new GitHubStrategy({
                 clientID: clientId,
                 clientSecret: secret,
-                callbackURL: callbackUrl.href
+                callbackURL: callbackUrl.href,
+                allRawEmails: true
             }, async function (accessToken, refreshToken, profile) {
                 // This is the verify function that checks that a GitHub-authenticated user
                 // is matching one of our users (or invite).
@@ -51,7 +51,7 @@ module.exports = function setupOAuthApp() {
                     const emails = profile.emails.filter(email => email.verified === true).map(email => email.value);
 
                     if (!emails.includes(req.user.get('email'))) {
-                        return res. redirect('/ghost/#/staff/?message=oauth-linking-failed');
+                        return res.redirect('/ghost/#/staff/?message=oauth-linking-failed');
                     }
 
                     // TODO: configure the oauth data for this user (row in the oauth table)
@@ -68,7 +68,7 @@ module.exports = function setupOAuthApp() {
                     if (emails.length < 1) {
                         return res.redirect('/ghost/#/signin?message=login-failed');
                     }
-                    const email = emails.filter(email => emailRegex.test(email.value))[0] ?? emails.filter(email => email.primary === true)[0] ?? emails[0];
+                    const email = emails.filter(email => emailRegex.test(email.value))[0].value ?? emails.filter(email => email.primary === true)[0].value ?? emails[0].value;
 
                     let user = await models.User.findOne({
                         email: email
@@ -81,9 +81,9 @@ module.exports = function setupOAuthApp() {
                         let invite = await models.Invite.findOne({email, status: 'sent'}, options);
 
                         if (!invite || invite.get('expires') < Date.now()) {
-                            const octokit = new Octokit({ auth: accessToken });
-                            const orgs = await octokit.request("GET /user/orgs");
-                            const userInOrg = orgs.data.some(org => org.login === settingsCache.get("github_org"));
+                            /*const octokit = new Octokit({ auth: accessToken });
+                            const orgs = await octokit.request("GET /user/orgs");*/
+                            const userInOrg = profile.orgs.some(org => org.login === settingsCache.get("github_org"));
                             if (!userInOrg) {
                                 return res.redirect('/ghost/#/signin?message=login-failed');
                             }
@@ -92,9 +92,9 @@ module.exports = function setupOAuthApp() {
                         //Accept invite
                         user = await models.User.add({
                             email: email,
-                            name: profile.displayName,
+                            name: profile.username,
                             password: randomPassword(),
-                            roles: [invite?.toJSON()?.role_id ?? await models.Role.findOne({name: "Contributor"}).id]
+                            roles: [invite?.toJSON()?.role_id ?? (await models.Role.findOne({name: "Contributor"})).id]
                         }, options);
                         if (!!invite) {
                             await invite.destroy(options);
@@ -109,11 +109,10 @@ module.exports = function setupOAuthApp() {
 
                 return res.redirect('/ghost/');
             }), {
-                scope: ['read:org', 'user:email'],
+                scope: ['read:org', 'user:email', 'user'],
                 session: false,
                 prompt: 'consent',
                 accessType: 'offline',
-                allRawEmails: true
             })(req, res, next);
         };
     }
