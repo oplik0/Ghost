@@ -1,8 +1,70 @@
 const should = require('should');
+const sinon = require('sinon');
 const errors = require('@tryghost/errors');
-const {partitionMembersBySegment} = require('../../../../core/server/services/mega/mega');
+
+const {addEmail, _partitionMembersBySegment, _getEmailMemberRows} = require('../../../../core/server/services/mega/mega');
 
 describe('MEGA', function () {
+    describe('addEmail', function () {
+        it('addEmail throws when "free" or "paid" strings are used as a email_recipient_filter', async function () {
+            const postModel = {
+                get: sinon.stub().returns('free')
+            };
+
+            try {
+                await addEmail(postModel);
+                should.fail('addEmail did not throw');
+            } catch (err) {
+                should.equal(err instanceof errors.GhostError, true);
+                err.message.should.equal('Unexpected email_recipient_filter value "free", expected an NQL equivalent');
+            }
+        });
+
+        it('addEmail throws when "none" is used as a email_recipient_filter', async function () {
+            const postModel = {
+                get: sinon.stub().returns('none')
+            };
+
+            try {
+                await addEmail(postModel);
+                should.fail('addEmail did not throw');
+            } catch (err) {
+                should.equal(err instanceof errors.GhostError, true);
+                err.message.should.equal('Cannot sent email to "none" email_recipient_filter');
+            }
+        });
+    });
+
+    describe('getEmailMemberRows', function () {
+        it('addEmail throws when "free" or "paid" strings are used as a recipient_filter', async function () {
+            const emailModel = {
+                get: sinon.stub().returns('paid')
+            };
+
+            try {
+                await _getEmailMemberRows({emailModel});
+                should.fail('getEmailMemberRows did not throw');
+            } catch (err) {
+                should.equal(err instanceof errors.GhostError, true);
+                err.message.should.equal('Unexpected recipient_filter value "paid", expected an NQL equivalent');
+            }
+        });
+
+        it('addEmail throws when "none" is used as a recipient_filter', async function () {
+            const emailModel = {
+                get: sinon.stub().returns('none')
+            };
+
+            try {
+                await _getEmailMemberRows({emailModel});
+                should.fail('getEmailMemberRows did not throw');
+            } catch (err) {
+                should.equal(err instanceof errors.GhostError, true);
+                err.message.should.equal('Cannot sent email to "none" recipient_filter');
+            }
+        });
+    });
+
     describe('partitionMembersBySegment', function () {
         it('partition with no segments', function () {
             const members = [{
@@ -17,7 +79,7 @@ describe('MEGA', function () {
             }];
             const segments = [];
 
-            const partitions = partitionMembersBySegment(members, segments);
+            const partitions = _partitionMembersBySegment(members, segments);
 
             partitions.unsegmented.length.should.equal(3);
             partitions.unsegmented[0].name.should.equal('Free Rish');
@@ -36,7 +98,7 @@ describe('MEGA', function () {
             }];
             const segments = ['status:free'];
 
-            const partitions = partitionMembersBySegment(members, segments);
+            const partitions = _partitionMembersBySegment(members, segments);
 
             should.exist(partitions['status:free']);
             partitions['status:free'].length.should.equal(2);
@@ -61,7 +123,7 @@ describe('MEGA', function () {
             }];
             const segments = ['status:free', 'status:-free'];
 
-            const partitions = partitionMembersBySegment(members, segments);
+            const partitions = _partitionMembersBySegment(members, segments);
 
             should.exist(partitions['status:free']);
             partitions['status:free'].length.should.equal(2);
@@ -81,7 +143,7 @@ describe('MEGA', function () {
             const segments = ['not a valid segment'];
 
             should.throws(() => {
-                partitionMembersBySegment(members, segments);
+                _partitionMembersBySegment(members, segments);
             }, errors.ValidationError);
         });
     });
