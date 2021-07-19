@@ -109,7 +109,7 @@ module.exports = function setupOAuthApp() {
 
                 return res.redirect('/ghost/');
             }), {
-                scope: ['read:org', 'user:email', 'user'],
+                scope: ['read:org', 'user:email'],
                 session: false,
                 prompt: 'consent',
                 accessType: 'offline'
