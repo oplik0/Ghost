@@ -14,6 +14,7 @@ const BACKUP_TABLES = [
     'members_stripe_customers_subscriptions',
     'migrations',
     'migrations_lock',
+    'oauth',
     'permissions',
     'permissions_roles',
     'permissions_users',
@@ -64,7 +65,8 @@ const SETTING_KEYS_BLOCKLIST = [
     'oauth_client_id',
     'oauth_client_secret',
     'github_email_pattern',
-    'github_org'
+    'github_org',
+    'email_verification_required'
 ];
 
 module.exports = {

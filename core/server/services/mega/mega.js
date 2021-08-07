@@ -24,10 +24,9 @@ const events = require('../../lib/common/events');
 
 const messages = {
     invalidSegment: 'Invalid segment value. Use one of the valid:"status:free" or "status:-free" values.',
-    unexpectedEmailRecipientFilterError: 'Unexpected email_recipient_filter value "{emailRecipientFilter}", expected an NQL equivalent',
-    noneEmailRecipientFilterError: 'Cannot sent email to "none" email_recipient_filter',
-    unexpectedRecipientFilterError: 'Unexpected recipient_filter value "{recipientFilter}", expected an NQL equivalent',
-    noneRecipientFileterError: 'Cannot sent email to "none" recipient_filter'
+    unexpectedFilterError: 'Unexpected {property} value "{value}", expected an NQL equivalent',
+    noneFilterError: 'Cannot send email to "none" {property}',
+    emailSendingDisabled: `Email sending is temporarily disabled because your account is currently in review. You should have an email about this from us already, but you can also reach us any time at support@ghost.org`
 };
 
 const getFromAddress = () => {
@@ -74,11 +73,16 @@ const getEmailData = async (postModel, options) => {
  *
  * @param {Object} postModel - post model instance
  * @param {[string]} toEmails - member email addresses to send email to
- * @param {ValidAPIVersion} options.apiVersion - api version to be used when serializing email data
+ * @param {ValidAPIVersion} apiVersion - api version to be used when serializing email data
+ * @param {ValidMemberSegment} memberSegment
  */
-const sendTestEmail = async (postModel, toEmails, apiVersion) => {
-    const emailData = await getEmailData(postModel, {apiVersion});
+const sendTestEmail = async (postModel, toEmails, apiVersion, memberSegment) => {
+    let emailData = await getEmailData(postModel, {apiVersion});
     emailData.subject = `[Test] ${emailData.subject}`;
+
+    if (labs.isSet('emailCardSegments') && memberSegment) {
+        emailData = postEmailSerializer.renderEmailForSegment(emailData, memberSegment);
+    }
 
     // fetch any matching members so that replacements use expected values
     const recipients = await Promise.all(toEmails.map(async (email) => {
@@ -109,6 +113,38 @@ const sendTestEmail = async (postModel, toEmails, apiVersion) => {
 };
 
 /**
+ * transformRecipientFilter
+ *
+ * Accepts a filter string, errors on unexpected legacy filter syntax and enforces subscribed:true
+ *
+ * @param {string} emailRecipientFilter NQL filter for members
+ * @param {object} options
+ */
+const transformEmailRecipientFilter = (emailRecipientFilter, {errorProperty = 'email_recipient_filter'} = {}) => {
+    switch (emailRecipientFilter) {
+    // `paid` and `free` were swapped out for NQL filters in 4.5.0, we shouldn't see them here now
+    case 'paid':
+    case 'free':
+        throw new errors.GhostError({
+            message: tpl(messages.unexpectedFilterError, {
+                property: errorProperty,
+                value: emailRecipientFilter
+            })
+        });
+    case 'all':
+        return 'subscribed:true';
+    case 'none':
+        throw new errors.GhostError({
+            message: tpl(messages.noneFilterError, {
+                property: errorProperty
+            })
+        });
+    default:
+        return `subscribed:true+(${emailRecipientFilter})`;
+    }
+};
+
+/**
  * addEmail
  *
  * Accepts a post model and creates an email record based on it. Only creates one
@@ -124,32 +160,17 @@ const addEmail = async (postModel, options) => {
         await limitService.errorIfWouldGoOverLimit('emails');
     }
 
+    if (settingsCache.get('email_verification_required') === true) {
+        throw new errors.HostLimitError({
+            message: tpl(messages.emailSendingDisabled)
+        });
+    }
+
     const knexOptions = _.pick(options, ['transacting', 'forUpdate']);
     const filterOptions = Object.assign({}, knexOptions, {limit: 1});
 
     const emailRecipientFilter = postModel.get('email_recipient_filter');
-
-    switch (emailRecipientFilter) {
-    // `paid` and `free` were swapped out for NQL filters in 4.5.0, we shouldn't see them here now
-    case 'paid':
-    case 'free':
-        throw new errors.GhostError({
-            message: tpl(messages.unexpectedEmailRecipientFilterError, {
-                emailRecipientFilter
-            })
-        });
-    case 'all':
-        filterOptions.filter = 'subscribed:true';
-        break;
-    case 'none':
-        throw new errors.GhostError({
-            message: tpl(messages.noneEmailRecipientFilterError, {
-                emailRecipientFilter
-            })
-        });
-    default:
-        filterOptions.filter = `subscribed:true+${emailRecipientFilter}`;
-    }
+    filterOptions.filter = transformEmailRecipientFilter(emailRecipientFilter, {errorProperty: 'email_recipient_filter'});
 
     const startRetrieve = Date.now();
     debug('addEmail: retrieving members count');
@@ -348,27 +369,8 @@ async function getEmailMemberRows({emailModel, memberSegment, options}) {
     const knexOptions = _.pick(options, ['transacting', 'forUpdate']);
     const filterOptions = Object.assign({}, knexOptions);
 
-    const recipientFilter = emailModel.get('recipient_filter');
-
-    switch (recipientFilter) {
-    // `paid` and `free` were swapped out for NQL filters in 4.5.0, we shouldn't see them here now
-    case 'paid':
-    case 'free':
-        throw new errors.GhostError({
-            message: tpl(messages.unexpectedRecipientFilterError, {
-                recipientFilter
-            })
-        });
-    case 'all':
-        filterOptions.filter = 'subscribed:true';
-        break;
-    case 'none':
-        throw new errors.GhostError({
-            message: tpl(messages.noneRecipientFileterError)
-        });
-    default:
-        filterOptions.filter = `subscribed:true+${recipientFilter}`;
-    }
+    const recipientFilter = transformEmailRecipientFilter(emailModel.get('recipient_filter'), {errorProperty: 'recipient_filter'});
+    filterOptions.filter = recipientFilter;
 
     if (memberSegment) {
         filterOptions.filter = `${filterOptions.filter}+${memberSegment}`;
@@ -542,10 +544,12 @@ module.exports = {
     sendTestEmail,
     handleUnsubscribeRequest,
     // NOTE: below are only exposed for testing purposes
+    _transformEmailRecipientFilter: transformEmailRecipientFilter,
     _partitionMembersBySegment: partitionMembersBySegment,
     _getEmailMemberRows: getEmailMemberRows
 };
 
 /**
  * @typedef {'v2' | 'v3' | 'v4' | 'canary' } ValidAPIVersion
+ * @typedef {'status:free' | 'status:-free'} ValidMemberSegment
  */
