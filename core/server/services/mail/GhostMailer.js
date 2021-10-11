@@ -1,7 +1,6 @@
 // # Mail
 // Handles sending email for Ghost
 const _ = require('lodash');
-const Promise = require('bluebird');
 const validator = require('@tryghost/validator');
 const config = require('../../../shared/config');
 const errors = require('@tryghost/errors');
@@ -26,8 +25,8 @@ function getFromAddress(requestedFromAddress) {
 
     // If we do have a from address, and it's just an email
     if (validator.isEmail(address, {require_tld: false})) {
-        const defaultBlogTitle = settingsCache.get('title') ? settingsCache.get('title').replace(/"/g, '\\"') : i18n.t('common.mail.title', {domain: getDomain()});
-        return `"${defaultBlogTitle}" <${address}>`;
+        const defaultSiteTitle = settingsCache.get('title') ? settingsCache.get('title').replace(/"/g, '\\"') : i18n.t('common.mail.title', {domain: getDomain()});
+        return `"${defaultSiteTitle}" <${address}>`;
     }
 
     return address;
@@ -37,6 +36,8 @@ function getFromAddress(requestedFromAddress) {
  * Decorates incoming message object wit    h nodemailer compatible fields.
  * For nodemailer 0.7.1 reference see - https://github.com/nodemailer/nodemailer/tree/da2f1d278f91b4262e940c0b37638e7027184b1d#e-mail-message-fields
  * @param {Object} message
+ * @param {boolean} [message.forceTextContent] - force text content
+ * @param {string} [message.from] - sender email address
  * @returns {Object}
  */
 function createMessage(message) {
@@ -65,15 +66,18 @@ function createMailError({message, err, ignoreDefaultMessage} = {message: ''}) {
 
 module.exports = class GhostMailer {
     constructor() {
-        const nodemailer = require('nodemailer');
-        const transport = config.get('mail') && config.get('mail').transport || 'direct';
+        const nodemailer = require('@tryghost/nodemailer');
+
+        let transport = config.get('mail') && config.get('mail').transport || 'direct';
+        transport = transport.toLowerCase();
+
         // nodemailer mutates the options passed to createTransport
         const options = config.get('mail') && _.clone(config.get('mail').options) || {};
 
         this.state = {
             usingDirect: transport === 'direct'
         };
-        this.transport = nodemailer.createTransport(transport, options);
+        this.transport = nodemailer(transport, options);
     }
 
     /**
@@ -82,10 +86,11 @@ module.exports = class GhostMailer {
      * @param {string} message.subject - email subject
      * @param {string} message.html - email content
      * @param {string} message.to - email recipient address
+     * @param {string} [message.from] - sender email address
      * @param {boolean} [message.forceTextContent] - maps to generateTextFromHTML nodemailer option
      * which is: "if set to true uses HTML to generate plain text body part from the HTML if the text is not defined"
      * (ref: https://github.com/nodemailer/nodemailer/tree/da2f1d278f91b4262e940c0b37638e7027184b1d#e-mail-message-fields)
-     * @returns {Promise}
+     * @returns {Promise<any>}
      */
     async send(message) {
         if (!(message && message.subject && message.html && message.to)) {
@@ -99,52 +104,42 @@ module.exports = class GhostMailer {
 
         const response = await this.sendMail(messageToSend);
 
-        if (this.transport.transportType === 'DIRECT') {
+        if (this.state.usingDirect) {
             return this.handleDirectTransportResponse(response);
         }
 
         return response;
     }
 
-    sendMail(message) {
-        return new Promise((resolve, reject) => {
-            this.transport.sendMail(message, (err, response) => {
-                if (err) {
-                    reject(createMailError({
-                        message: i18n.t('errors.mail.reason', {reason: err.message || err}),
-                        err
-                    }));
-                }
-                resolve(response);
+    async sendMail(message) {
+        try {
+            const response = await this.transport.sendMail(message);
+            return response;
+        } catch (err) {
+            throw createMailError({
+                message: i18n.t('errors.mail.reason', {reason: err.message || err}),
+                err
             });
-        });
+        }
     }
 
     handleDirectTransportResponse(response) {
-        return new Promise((resolve, reject) => {
-            response.statusHandler.once('failed', function (data) {
-                if (data.error && data.error.code === 'ENOTFOUND') {
-                    reject(createMailError({
-                        message: i18n.t('errors.mail.noMailServerAtAddress.error', {domain: data.domain})
-                    }));
-                }
+        if (!response) {
+            return i18n.t('notices.mail.messageSent');
+        }
 
-                reject(createMailError());
+        if (response.pending.length > 0) {
+            throw createMailError({
+                message: i18n.t('errors.mail.reason', {reason: 'Email has been temporarily rejected'})
             });
+        }
 
-            response.statusHandler.once('requeue', function (data) {
-                if (data.error && data.error.message) {
-                    reject(createMailError({
-                        message: i18n.t('errors.mail.reason', {reason: data.error.message})
-                    }));
-                }
-
-                reject(createMailError());
+        if (response.errors.length > 0) {
+            throw createMailError({
+                message: i18n.t('errors.mail.reason', {reason: response.errors[0].message})
             });
+        }
 
-            response.statusHandler.once('sent', function () {
-                resolve(i18n.t('notices.mail.messageSent'));
-            });
-        });
+        return i18n.t('notices.mail.messageSent');
     }
 };

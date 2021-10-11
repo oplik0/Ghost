@@ -6,6 +6,7 @@ const CollectionRouter = require('./CollectionRouter');
 const TaxonomyRouter = require('./TaxonomyRouter');
 const PreviewRouter = require('./PreviewRouter');
 const ParentRouter = require('./ParentRouter');
+const EmailRouter = require('./EmailRouter');
 const UnsubscribeRouter = require('./UnsubscribeRouter');
 
 // This emits its own routing events
@@ -70,6 +71,10 @@ module.exports.start = (apiVersion, routerSettings) => {
     const unsubscribeRouter = new UnsubscribeRouter();
     siteRouter.mountRouter(unsubscribeRouter.router());
     registry.setRouter('unsubscribeRouter', unsubscribeRouter);
+
+    const emailRouter = new EmailRouter(RESOURCE_CONFIG);
+    siteRouter.mountRouter(emailRouter.router());
+    registry.setRouter('emailRouter', emailRouter);
 
     const previewRouter = new PreviewRouter(RESOURCE_CONFIG);
     siteRouter.mountRouter(previewRouter.router());

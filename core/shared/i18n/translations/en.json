@@ -106,8 +106,7 @@
             },
             "images": {
                 "invalidDimensions": "Could not fetch image dimensions."
-            },
-            "redirectsWrongFormat": "Incorrect redirects file format."
+            }
         },
         "config": {
             "couldNotLocateConfigFile": {
@@ -157,8 +156,7 @@
             "maintenance": "Site is currently undergoing maintenance, please wait a moment then retry.",
             "maintenanceUrlService": "Site is starting up, please wait a moment then retry.",
             "requiredOnFuture": "This will be required in future. Please see {link}",
-            "internalError": "Something went wrong.",
-            "jsonParse": "Could not parse JSON: {context}."
+            "internalError": "Something went wrong."
         },
         "mail": {
             "incompleteMessageData": {
@@ -341,10 +339,6 @@
                 "pageNotFound": "Page not found.",
                 "invalidVisibilityFilter": "Invalid filter in visibility property"
             },
-            "job": {
-                "notFound": "Job not found.",
-                "publishInThePast": "Use the force flag to publish a post in the past."
-            },
             "redirects": {
                 "missingFile": "Please select a JSON file.",
                 "invalidFile": "Please select a valid JSON file to import.",
@@ -412,8 +406,7 @@
                 "invalidFile": "Please select a valid zip file.",
                 "overrideCasper": "Please rename your zip, it's not allowed to override the default casper theme.",
                 "destroyCasper": "Deleting the default casper theme is not allowed.",
-                "destroyActive": "Deleting the active theme is not allowed.",
-                "repoDoesNotExist": "Supplied GitHub theme does not exist or is inaccessible"
+                "destroyActive": "Deleting the active theme is not allowed."
             },
             "images": {
                 "missingFile": "Please select an image.",
@@ -544,15 +537,6 @@
             }
         },
         "services": {
-            "settings": {
-                "yaml": {
-                    "error": "Could not parse {file}: {context}.",
-                    "help": "Check your {file} file for typos and fix the named issues.",
-                    "validate": "The following definition \"{at}\" is invalid: {reason}"
-                },
-                "loader": "Error trying to load YAML setting for {setting} from '{path}'.",
-                "ensureSettings": "Error trying to access settings files in {path}."
-            },
             "mega": {
                 "requestFailed": {
                     "error": "The email service was unable to send an email batch."

@@ -36,7 +36,7 @@ module.exports = function setupOAuthApp() {
      */
     function githubOAuthMiddleware(clientId, secret) {
         return (req, res, next) => {
-            // TODO: use url config instead of the string /ghost
+            const adminURL = urlUtils.urlFor('admin', true);
 
             //Create the callback url to be sent to GitHub
             const callbackUrl = new URL(urlUtils.getSiteUrl());
@@ -55,7 +55,7 @@ module.exports = function setupOAuthApp() {
                     const emails = profile.emails.filter(email => email.verified === true).map(email => email.value);
 
                     if (!emails.includes(req.user.get('email'))) {
-                        return res.redirect('/ghost/#/staff/?message=oauth-linking-failed');
+                        return res.redirect(new URL('#/staff?message=oauth-linking-failed', adminURL));
                     }
 
                     // TODO: configure the oauth data for this user (row in the oauth table)
@@ -70,7 +70,7 @@ module.exports = function setupOAuthApp() {
                     const emailRegex = new RegExp(settingsCache.get('github_email_pattern') ?? '.*@.*');
                     const emails = profile.emails.filter(email => email.verified === true);
                     if (emails.length < 1) {
-                        return res.redirect('/ghost/#/signin?message=login-failed');
+                        return res.redirect(new URL('#/signin?message=login-failed', adminURL));
                     }
                     const email = emails.filter(mail => emailRegex.test(mail.value))[0].value ?? emails.filter(mail => mail.primary === true)[0].value ?? emails[0].value;
 
@@ -111,7 +111,7 @@ module.exports = function setupOAuthApp() {
 
                 await auth.session.sessionService.createSessionForUser(req, res, req.user);
 
-                return res.redirect('/ghost/');
+                return res.redirect(adminURL);
             }), {
                 scope: ['read:org', 'user:email'],
                 session: false,
@@ -138,7 +138,7 @@ module.exports = function setupOAuthApp() {
 
     oauthApp.get('/:provider/callback', (req, res, next) => {
         // Set the referrer as the ghost instance domain so that the session is linked to the ghost instance domain
-        req.headers.referrer = urlUtils.getSiteUrl();
+        req.headers.referrer = urlUtils.getAdminUrl();
         next();
     }, auth.authenticate.authenticateAdminApi, (req, res, next) => {
         if (req.params.provider !== 'github') {
