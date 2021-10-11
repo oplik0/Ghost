@@ -17,7 +17,7 @@ describe('Settings Model', function () {
             await models.Settings.populateDefaults();
 
             const settingsPopulated = await models.Settings.findAll();
-            settingsPopulated.length.should.equal(93);
+            settingsPopulated.length.should.equal(95);
         });
 
         it('doesn\'t overwrite any existing settings', async function () {
