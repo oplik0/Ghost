@@ -75,7 +75,7 @@
     "@tryghost/kg-default-atoms": "3.0.0",
     "@tryghost/kg-default-cards": "5.0.7",
     "@tryghost/kg-markdown-html-renderer": "5.0.5",
-    "@tryghost/kg-mobiledoc-html-renderer": "5.1.1",
+    "@tryghost/kg-mobiledoc-html-renderer": "5.3.11",
     "@tryghost/limit-service": "0.6.4",
     "@tryghost/logging": "0.1.7",
     "@tryghost/magic-link": "1.0.13",
