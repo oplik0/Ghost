@@ -1763,10 +1763,10 @@
     got "9.6.0"
     lodash "^4.17.21"
 
-"@tryghost/root-utils@0.3.4", "@tryghost/root-utils@^0.3.4":
-  version "0.3.4"
-  resolved "https://registry.yarnpkg.com/@tryghost/root-utils/-/root-utils-0.3.4.tgz#621bc9564ba3fa78ac1a066f3794f501cf85e055"
-  integrity sha512-7ExJfA7m5s8djpe8d7ij/rvLZbZ6O9i/HvG7PHCTvDoilyINUW1xwBgsGR2cUmKwLO3dilYYxaQfvRJXB0VwBA==
+"@tryghost/root-utils@0.3.26", "@tryghost/root-utils@^0.3.4":
+  version "0.3.26"
+  resolved "https://registry.yarnpkg.com/@tryghost/root-utils/-/root-utils-0.3.26.tgz#26e626706b67dddd13f59812826a806c45722122"
+  integrity sha512-akbI+mmnU6mlwbVAEy8Ay1MYbMEocKEVP+QHbYCKk3d++2TM2lmSZm6CFIP5+10NeFiP2Em6jSaGXBpaalR9VQ==
   dependencies:
     caller "^1.0.1"
     find-root "^1.1.0"
@@ -6387,12 +6387,7 @@ isstream@~0.1.2:
   resolved "https://registry.yarnpkg.com/isstream/-/isstream-0.1.2.tgz#47e63f7af55afa6f92e1500e690eb8b8529c099a"
   integrity sha1-R+Y/evVa+m+S4VAOaQ64uFKcCZo=
 
-istanbul-lib-coverage@^3.0.0:
-  version "3.0.0"
-  resolved "https://registry.yarnpkg.com/istanbul-lib-coverage/-/istanbul-lib-coverage-3.0.0.tgz#f5944a37c70b550b02a78a5c3b2055b280cec8ec"
-  integrity sha512-UiUIqxMgRDET6eR+o5HbfRYP1l0hqkWOs7vNxC/mggutCMUIhWMm8gAHb8tHlyfD3/l6rlgNA5cKdDzEAf6hEg==
-
-istanbul-lib-coverage@^3.0.1:
+istanbul-lib-coverage@^3.0.0, istanbul-lib-coverage@^3.0.1:
   version "3.0.1"
   resolved "https://registry.yarnpkg.com/istanbul-lib-coverage/-/istanbul-lib-coverage-3.0.1.tgz#e8900b3ed6069759229cf30f7067388d148aeb5e"
   integrity sha512-GvCYYTxaCPqwMjobtVcVKvSHtAGe48MNhGjpK8LtVF8K0ISX7hCKl85LgtuaSneWVyQmaGcW3iXVV3GaZSLpmQ==
