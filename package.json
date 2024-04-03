@@ -85,7 +85,7 @@
     "@tryghost/members-offers": "0.4.2",
     "@tryghost/members-ssr": "1.0.14",
     "@tryghost/mw-session-from-token": "0.1.25",
-    "@tryghost/nodemailer": "0.3.3",
+    "@tryghost/nodemailer": "0.3.40",
     "@tryghost/package-json": "1.0.5",
     "@tryghost/promise": "0.1.12",
     "@tryghost/request": "0.1.5",
