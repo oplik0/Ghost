@@ -93,7 +93,7 @@
     "@tryghost/security": "0.2.12",
     "@tryghost/session-service": "0.1.27",
     "@tryghost/social-urls": "0.1.26",
-    "@tryghost/string": "0.1.20",
+    "@tryghost/string": "0.2.11",
     "@tryghost/tpl": "0.1.5",
     "@tryghost/update-check-service": "0.2.3",
     "@tryghost/url-utils": "2.0.2",

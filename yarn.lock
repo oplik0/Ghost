@@ -1801,7 +1801,14 @@
   resolved "https://registry.yarnpkg.com/@tryghost/social-urls/-/social-urls-0.1.26.tgz#dfacc38cf187d9f6733155e6408329ef54210c72"
   integrity sha512-gwh8W2tlaaKwxrQSNvvnJTUUOVyDQQ4DR+ukEgVBwKbU5m7BePACf/0iuLY3PZ3mvZyzaQ3Jc3IWQHd/FDglPA==
 
-"@tryghost/string@0.1.20", "@tryghost/string@^0.1.17", "@tryghost/string@^0.1.20":
+"@tryghost/string@0.2.11":
+  version "0.2.11"
+  resolved "https://registry.yarnpkg.com/@tryghost/string/-/string-0.2.11.tgz#6c55af09d55ebede5731ca9b6ba2c24c537a51db"
+  integrity sha512-fXA9Vbr133Mx3w55jPuQ2gkZFrGszwIGiV7R+4Rr3jiUnQF3ecyazx+LJ0tVbI3ayzl9EY5eAG7PhcGEc6BlSA==
+  dependencies:
+    unidecode "^0.1.8"
+
+"@tryghost/string@^0.1.17", "@tryghost/string@^0.1.20":
   version "0.1.20"
   resolved "https://registry.yarnpkg.com/@tryghost/string/-/string-0.1.20.tgz#da38e1412b2bb53dee1fe1e7a7de3f43450452a0"
   integrity sha512-+EA1BJ5D55RQA3HsTMchGdxXL/0cN/rHbSjqLhjBhKuWTFNLb6AR9res1Bw3vb7ZxMV0ggUOrFDJ1Lqo2RbsEA==
@@ -6387,12 +6394,7 @@ isstream@~0.1.2:
   resolved "https://registry.yarnpkg.com/isstream/-/isstream-0.1.2.tgz#47e63f7af55afa6f92e1500e690eb8b8529c099a"
   integrity sha1-R+Y/evVa+m+S4VAOaQ64uFKcCZo=
 
-istanbul-lib-coverage@^3.0.0:
-  version "3.0.0"
-  resolved "https://registry.yarnpkg.com/istanbul-lib-coverage/-/istanbul-lib-coverage-3.0.0.tgz#f5944a37c70b550b02a78a5c3b2055b280cec8ec"
-  integrity sha512-UiUIqxMgRDET6eR+o5HbfRYP1l0hqkWOs7vNxC/mggutCMUIhWMm8gAHb8tHlyfD3/l6rlgNA5cKdDzEAf6hEg==
-
-istanbul-lib-coverage@^3.0.1:
+istanbul-lib-coverage@^3.0.0, istanbul-lib-coverage@^3.0.1:
   version "3.0.1"
   resolved "https://registry.yarnpkg.com/istanbul-lib-coverage/-/istanbul-lib-coverage-3.0.1.tgz#e8900b3ed6069759229cf30f7067388d148aeb5e"
   integrity sha512-GvCYYTxaCPqwMjobtVcVKvSHtAGe48MNhGjpK8LtVF8K0ISX7hCKl85LgtuaSneWVyQmaGcW3iXVV3GaZSLpmQ==
