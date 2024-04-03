@@ -2396,10 +2396,10 @@ async@^2.1.2, async@^2.6.0, async@^2.6.1:
   dependencies:
     lodash "^4.17.14"
 
-async@^3.0.1, async@^3.2.0, async@~3.2.0:
-  version "3.2.1"
-  resolved "https://registry.yarnpkg.com/async/-/async-3.2.1.tgz#d3274ec66d107a47476a4c49136aacdb00665fc8"
-  integrity sha512-XdD5lRO/87udXCMC9meWdYiR+Nq6ZjUfXidViUZGu2F1MO4T3XwZ1et0hb2++BgLfhyJwy44BGB/yx80ABx8hg==
+async@^3.0.0, async@^3.0.1, async@^3.2.0, async@~3.2.0:
+  version "3.2.5"
+  resolved "https://registry.yarnpkg.com/async/-/async-3.2.5.tgz#ebd52a8fdaf7a2289a24df399f8d8485c8a46b66"
+  integrity sha512-baNZyqaaLhyLVKm/DlvdW051MSgO6b8eVfIezl9E5PqWxFgzLm/wQntEW4zOytVburDEr0JlALEpdOFwvErLsg==
 
 asynckit@^0.4.0:
   version "0.4.0"
@@ -6387,12 +6387,7 @@ isstream@~0.1.2:
   resolved "https://registry.yarnpkg.com/isstream/-/isstream-0.1.2.tgz#47e63f7af55afa6f92e1500e690eb8b8529c099a"
   integrity sha1-R+Y/evVa+m+S4VAOaQ64uFKcCZo=
 
-istanbul-lib-coverage@^3.0.0:
-  version "3.0.0"
-  resolved "https://registry.yarnpkg.com/istanbul-lib-coverage/-/istanbul-lib-coverage-3.0.0.tgz#f5944a37c70b550b02a78a5c3b2055b280cec8ec"
-  integrity sha512-UiUIqxMgRDET6eR+o5HbfRYP1l0hqkWOs7vNxC/mggutCMUIhWMm8gAHb8tHlyfD3/l6rlgNA5cKdDzEAf6hEg==
-
-istanbul-lib-coverage@^3.0.1:
+istanbul-lib-coverage@^3.0.0, istanbul-lib-coverage@^3.0.1:
   version "3.0.1"
   resolved "https://registry.yarnpkg.com/istanbul-lib-coverage/-/istanbul-lib-coverage-3.0.1.tgz#e8900b3ed6069759229cf30f7067388d148aeb5e"
   integrity sha512-GvCYYTxaCPqwMjobtVcVKvSHtAGe48MNhGjpK8LtVF8K0ISX7hCKl85LgtuaSneWVyQmaGcW3iXVV3GaZSLpmQ==
@@ -7852,6 +7847,16 @@ nconf@0.11.3:
   integrity sha512-iYsAuDS9pzjVMGIzJrGE0Vk3Eh8r/suJanRAnWGBd29rVS2XtSgzcAo5l6asV3e4hH2idVONHirg1efoBOslBg==
   dependencies:
     async "^1.4.0"
+    ini "^2.0.0"
+    secure-keys "^1.0.0"
+    yargs "^16.1.1"
+
+nconf@0.12.1:
+  version "0.12.1"
+  resolved "https://registry.yarnpkg.com/nconf/-/nconf-0.12.1.tgz#b0b91d2e32dc588fad19ac8bc5245e7472ebb4b9"
+  integrity sha512-p2cfF+B3XXacQdswUYWZ0w6Vld0832A/tuqjLBu3H1sfUcby4N2oVbGhyuCkZv+t3iY3aiFEj7gZGqax9Q2c1w==
+  dependencies:
+    async "^3.0.0"
     ini "^2.0.0"
     secure-keys "^1.0.0"
     yargs "^16.1.1"
