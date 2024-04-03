@@ -1404,10 +1404,10 @@
   resolved "https://registry.yarnpkg.com/@tryghost/config-url-helpers/-/config-url-helpers-0.1.2.tgz#2c870f35313d7f83ef625291361a5dc345afdfbe"
   integrity sha512-WhmLjMe8QWh5ZHtzVwTyk13qqRn494pOnrH8Usy+8zgF0mYQwtgkC9XhUo7nZDYg/QPqsG9zTW7l0XKdgb4Q7A==
 
-"@tryghost/constants@0.1.11":
-  version "0.1.11"
-  resolved "https://registry.yarnpkg.com/@tryghost/constants/-/constants-0.1.11.tgz#ffcc6ccb10a768aaa9276c3a22b2dea9f560e247"
-  integrity sha512-ml1aJ4nJmfA8MRAJ3l9+iTdccGDQiUN1En8XwYwypfrKlECR8Mw/kKRPnqHge598+ED6J1+at5gArSq6bLKbug==
+"@tryghost/constants@1.0.7":
+  version "1.0.7"
+  resolved "https://registry.yarnpkg.com/@tryghost/constants/-/constants-1.0.7.tgz#03bf3e6d9d0fb85373bfa04315b088b1c54eeb15"
+  integrity sha512-hBGfNG1jsWeRKo3R4cfnkAbjcDjQMrJs3ts8srN3w9xKWeTngf6ByBiTmiXzbNQ+2KSpztu0qhKORUR+UqJPOw==
 
 "@tryghost/custom-theme-settings-service@0.1.1":
   version "0.1.1"
@@ -6387,12 +6387,7 @@ isstream@~0.1.2:
   resolved "https://registry.yarnpkg.com/isstream/-/isstream-0.1.2.tgz#47e63f7af55afa6f92e1500e690eb8b8529c099a"
   integrity sha1-R+Y/evVa+m+S4VAOaQ64uFKcCZo=
 
-istanbul-lib-coverage@^3.0.0:
-  version "3.0.0"
-  resolved "https://registry.yarnpkg.com/istanbul-lib-coverage/-/istanbul-lib-coverage-3.0.0.tgz#f5944a37c70b550b02a78a5c3b2055b280cec8ec"
-  integrity sha512-UiUIqxMgRDET6eR+o5HbfRYP1l0hqkWOs7vNxC/mggutCMUIhWMm8gAHb8tHlyfD3/l6rlgNA5cKdDzEAf6hEg==
-
-istanbul-lib-coverage@^3.0.1:
+istanbul-lib-coverage@^3.0.0, istanbul-lib-coverage@^3.0.1:
   version "3.0.1"
   resolved "https://registry.yarnpkg.com/istanbul-lib-coverage/-/istanbul-lib-coverage-3.0.1.tgz#e8900b3ed6069759229cf30f7067388d148aeb5e"
   integrity sha512-GvCYYTxaCPqwMjobtVcVKvSHtAGe48MNhGjpK8LtVF8K0ISX7hCKl85LgtuaSneWVyQmaGcW3iXVV3GaZSLpmQ==
