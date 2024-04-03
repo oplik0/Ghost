@@ -1859,10 +1859,10 @@
     "@tryghost/root-utils" "^0.3.4"
     semver "^7.3.5"
 
-"@tryghost/vhost-middleware@1.0.18":
-  version "1.0.18"
-  resolved "https://registry.yarnpkg.com/@tryghost/vhost-middleware/-/vhost-middleware-1.0.18.tgz#187441aaa2981848b95587ff723a36dbec885667"
-  integrity sha512-d1cwxhHvOpomQaOxsVM+28TyJRPMUt/8GODYhppQed/6rnQut6Gj6BB465x9g9LUcpUwir1DD8T7B0bt6q0FQQ==
+"@tryghost/vhost-middleware@1.0.28":
+  version "1.0.28"
+  resolved "https://registry.yarnpkg.com/@tryghost/vhost-middleware/-/vhost-middleware-1.0.28.tgz#425cf0c7c92f070a3a0ef1fc6e272f00f0f39bb2"
+  integrity sha512-FppRUUo0ywg0btShICgWVKIHjxxq7SpWD6kwxsZYwXaSCaExJ1P68e52lPvAJutAjbxH6bZDcaIzm/lJo3ILyw==
 
 "@tryghost/zip@1.1.15":
   version "1.1.15"
@@ -6387,12 +6387,7 @@ isstream@~0.1.2:
   resolved "https://registry.yarnpkg.com/isstream/-/isstream-0.1.2.tgz#47e63f7af55afa6f92e1500e690eb8b8529c099a"
   integrity sha1-R+Y/evVa+m+S4VAOaQ64uFKcCZo=
 
-istanbul-lib-coverage@^3.0.0:
-  version "3.0.0"
-  resolved "https://registry.yarnpkg.com/istanbul-lib-coverage/-/istanbul-lib-coverage-3.0.0.tgz#f5944a37c70b550b02a78a5c3b2055b280cec8ec"
-  integrity sha512-UiUIqxMgRDET6eR+o5HbfRYP1l0hqkWOs7vNxC/mggutCMUIhWMm8gAHb8tHlyfD3/l6rlgNA5cKdDzEAf6hEg==
-
-istanbul-lib-coverage@^3.0.1:
+istanbul-lib-coverage@^3.0.0, istanbul-lib-coverage@^3.0.1:
   version "3.0.1"
   resolved "https://registry.yarnpkg.com/istanbul-lib-coverage/-/istanbul-lib-coverage-3.0.1.tgz#e8900b3ed6069759229cf30f7067388d148aeb5e"
   integrity sha512-GvCYYTxaCPqwMjobtVcVKvSHtAGe48MNhGjpK8LtVF8K0ISX7hCKl85LgtuaSneWVyQmaGcW3iXVV3GaZSLpmQ==

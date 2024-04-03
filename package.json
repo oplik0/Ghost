@@ -99,7 +99,7 @@
     "@tryghost/url-utils": "2.0.2",
     "@tryghost/validator": "0.1.5",
     "@tryghost/version": "0.1.4",
-    "@tryghost/vhost-middleware": "1.0.18",
+    "@tryghost/vhost-middleware": "1.0.28",
     "@tryghost/zip": "1.1.17",
     "amperize": "0.6.1",
     "analytics-node": "5.1.0",
