@@ -1525,10 +1525,10 @@
   resolved "https://registry.yarnpkg.com/@tryghost/kg-clean-basic-html/-/kg-clean-basic-html-1.0.18.tgz#2d626c5da951551cf09c28a55ac23df801d2e880"
   integrity sha512-5jUY/McF01hDi6BsdKOsBhtdhmuCv1djYYj7eVOFGFcdmLkxRHOJWqmRfJTCVdfeU5hnOu+D6XcNsDxmTJXLKQ==
 
-"@tryghost/kg-default-atoms@3.0.0":
-  version "3.0.0"
-  resolved "https://registry.yarnpkg.com/@tryghost/kg-default-atoms/-/kg-default-atoms-3.0.0.tgz#da92ddc8c7d513d641ec1fdd2c8c19e71f6b3616"
-  integrity sha512-1f9CM49QYVyx7vWnCA22soX71veVhRWUtV4sPmy9Qf92zLHTZwQ9O9W1hs8jVesNBPRdVU5t/dWHsydx2n7Tmg==
+"@tryghost/kg-default-atoms@5.0.1":
+  version "5.0.1"
+  resolved "https://registry.yarnpkg.com/@tryghost/kg-default-atoms/-/kg-default-atoms-5.0.1.tgz#747da13aeb701e55df0edff4be85b9494f5f2556"
+  integrity sha512-6BJHmlNAcmpohjXuUJamCcNTo+SM/qSTDHeutazKyxJ/GU6mSBrS8N3ohVnXSV6YOGFEnaSRQVZP1MkxfB/ngw==
 
 "@tryghost/kg-default-cards@5.0.7":
   version "5.0.7"
@@ -6387,12 +6387,7 @@ isstream@~0.1.2:
   resolved "https://registry.yarnpkg.com/isstream/-/isstream-0.1.2.tgz#47e63f7af55afa6f92e1500e690eb8b8529c099a"
   integrity sha1-R+Y/evVa+m+S4VAOaQ64uFKcCZo=
 
-istanbul-lib-coverage@^3.0.0:
-  version "3.0.0"
-  resolved "https://registry.yarnpkg.com/istanbul-lib-coverage/-/istanbul-lib-coverage-3.0.0.tgz#f5944a37c70b550b02a78a5c3b2055b280cec8ec"
-  integrity sha512-UiUIqxMgRDET6eR+o5HbfRYP1l0hqkWOs7vNxC/mggutCMUIhWMm8gAHb8tHlyfD3/l6rlgNA5cKdDzEAf6hEg==
-
-istanbul-lib-coverage@^3.0.1:
+istanbul-lib-coverage@^3.0.0, istanbul-lib-coverage@^3.0.1:
   version "3.0.1"
   resolved "https://registry.yarnpkg.com/istanbul-lib-coverage/-/istanbul-lib-coverage-3.0.1.tgz#e8900b3ed6069759229cf30f7067388d148aeb5e"
   integrity sha512-GvCYYTxaCPqwMjobtVcVKvSHtAGe48MNhGjpK8LtVF8K0ISX7hCKl85LgtuaSneWVyQmaGcW3iXVV3GaZSLpmQ==
