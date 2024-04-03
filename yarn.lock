@@ -931,6 +931,11 @@
   dependencies:
     lodash "^4.17.11"
 
+"@nexes/nql-lang@0.1.0":
+  version "0.1.0"
+  resolved "https://registry.yarnpkg.com/@nexes/nql-lang/-/nql-lang-0.1.0.tgz#801a616711461a9c1ee765f8338202742036b056"
+  integrity sha512-p16GyCzvfpW7DoblHdjssACSpavU0phKZKgyhbDCuD1GYru5xbJGfI7AGBaf1grAa31gpChnPKUx2xqnSesQaw==
+
 "@nexes/nql-lang@^0.0.1":
   version "0.0.1"
   resolved "https://registry.yarnpkg.com/@nexes/nql-lang/-/nql-lang-0.0.1.tgz#a13c023873f9bc11b9e4e284449c6cfbeccc8011"
@@ -944,6 +949,16 @@
     "@nexes/mongo-knex" "0.5.0"
     "@nexes/mongo-utils" "^0.3.1"
     "@nexes/nql-lang" "^0.0.1"
+    mingo "^2.2.2"
+
+"@nexes/nql@0.7.0":
+  version "0.7.0"
+  resolved "https://registry.yarnpkg.com/@nexes/nql/-/nql-0.7.0.tgz#87660dc2b338fdeb0a8514df158004457ae5ef55"
+  integrity sha512-eAevZfmrowJufuxV35N9Sj9xdqetsEL01RODCMBV/5ksiamw+JQWLE+kyJsfdo+OYVej5kBlhv6sYtJx5D+GIA==
+  dependencies:
+    "@nexes/mongo-knex" "0.5.0"
+    "@nexes/mongo-utils" "^0.3.1"
+    "@nexes/nql-lang" "0.1.0"
     mingo "^2.2.2"
 
 "@npmcli/fs@^1.0.0":
@@ -6387,12 +6402,7 @@ isstream@~0.1.2:
   resolved "https://registry.yarnpkg.com/isstream/-/isstream-0.1.2.tgz#47e63f7af55afa6f92e1500e690eb8b8529c099a"
   integrity sha1-R+Y/evVa+m+S4VAOaQ64uFKcCZo=
 
-istanbul-lib-coverage@^3.0.0:
-  version "3.0.0"
-  resolved "https://registry.yarnpkg.com/istanbul-lib-coverage/-/istanbul-lib-coverage-3.0.0.tgz#f5944a37c70b550b02a78a5c3b2055b280cec8ec"
-  integrity sha512-UiUIqxMgRDET6eR+o5HbfRYP1l0hqkWOs7vNxC/mggutCMUIhWMm8gAHb8tHlyfD3/l6rlgNA5cKdDzEAf6hEg==
-
-istanbul-lib-coverage@^3.0.1:
+istanbul-lib-coverage@^3.0.0, istanbul-lib-coverage@^3.0.1:
   version "3.0.1"
   resolved "https://registry.yarnpkg.com/istanbul-lib-coverage/-/istanbul-lib-coverage-3.0.1.tgz#e8900b3ed6069759229cf30f7067388d148aeb5e"
   integrity sha512-GvCYYTxaCPqwMjobtVcVKvSHtAGe48MNhGjpK8LtVF8K0ISX7hCKl85LgtuaSneWVyQmaGcW3iXVV3GaZSLpmQ==

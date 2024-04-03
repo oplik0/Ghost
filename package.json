@@ -53,7 +53,7 @@
     "cli": "^1.17.0"
   },
   "dependencies": {
-    "@nexes/nql": "0.6.0",
+    "@nexes/nql": "0.7.0",
     "@sentry/node": "6.13.3",
     "@tryghost/adapter-manager": "0.2.17",
     "@tryghost/admin-api-schema": "2.6.0",
