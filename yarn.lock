@@ -6387,12 +6387,7 @@ isstream@~0.1.2:
   resolved "https://registry.yarnpkg.com/isstream/-/isstream-0.1.2.tgz#47e63f7af55afa6f92e1500e690eb8b8529c099a"
   integrity sha1-R+Y/evVa+m+S4VAOaQ64uFKcCZo=
 
-istanbul-lib-coverage@^3.0.0:
-  version "3.0.0"
-  resolved "https://registry.yarnpkg.com/istanbul-lib-coverage/-/istanbul-lib-coverage-3.0.0.tgz#f5944a37c70b550b02a78a5c3b2055b280cec8ec"
-  integrity sha512-UiUIqxMgRDET6eR+o5HbfRYP1l0hqkWOs7vNxC/mggutCMUIhWMm8gAHb8tHlyfD3/l6rlgNA5cKdDzEAf6hEg==
-
-istanbul-lib-coverage@^3.0.1:
+istanbul-lib-coverage@^3.0.0, istanbul-lib-coverage@^3.0.1:
   version "3.0.1"
   resolved "https://registry.yarnpkg.com/istanbul-lib-coverage/-/istanbul-lib-coverage-3.0.1.tgz#e8900b3ed6069759229cf30f7067388d148aeb5e"
   integrity sha512-GvCYYTxaCPqwMjobtVcVKvSHtAGe48MNhGjpK8LtVF8K0ISX7hCKl85LgtuaSneWVyQmaGcW3iXVV3GaZSLpmQ==
@@ -7700,10 +7695,10 @@ mocha@9.1.2:
     yargs-parser "20.2.4"
     yargs-unparser "2.0.0"
 
-mock-knex@0.4.10:
-  version "0.4.10"
-  resolved "https://registry.yarnpkg.com/mock-knex/-/mock-knex-0.4.10.tgz#e3324286a16da913527c6a3f305b7681390b92a1"
-  integrity sha512-LvgctE44DyQSkk2sRHGPHuE/8Oq8ShawT/FG7YAXGMDCCpPaeMjHs6ZBMbJMq+K6MoM9Socs/viTw26yS5y5GA==
+mock-knex@0.4.13:
+  version "0.4.13"
+  resolved "https://registry.yarnpkg.com/mock-knex/-/mock-knex-0.4.13.tgz#edb248f883b2302132171b271e1d17e7527a6013"
+  integrity sha512-UmZlxiJH7bBdzjSWcrLJ1tnLfPNL7GfJO1IWL4sHWfMzLqdA3VAVWhotq1YiyE5NwVcrQdoXj3TGGjhTkBeIcQ==
   dependencies:
     bluebird "^3.4.1"
     lodash "^4.14.2"
