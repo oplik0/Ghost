@@ -122,7 +122,7 @@
     "express-jwt": "6.1.0",
     "express-query-boolean": "2.0.0",
     "express-session": "1.17.2",
-    "fs-extra": "10.0.0",
+    "fs-extra": "11.2.0",
     "ghost-storage-base": "0.0.6",
     "glob": "7.2.0",
     "got": "9.6.0",
