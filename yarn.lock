@@ -2915,6 +2915,14 @@ chalk@^2.0.0, chalk@^2.1.0, chalk@^2.4.1:
     escape-string-regexp "^1.0.5"
     supports-color "^5.3.0"
 
+chalk@^3.0.0:
+  version "3.0.0"
+  resolved "https://registry.yarnpkg.com/chalk/-/chalk-3.0.0.tgz#3f73c2bf526591f574cc492c51e2456349f844e4"
+  integrity sha512-4D3B6Wf41KOYRFdszmDqMCGq5VV/uMAB273JILmO+3jAlh8X4qDtdtgCR3fxtbLEMzSx22QdhnDcJvu2u1fVwg==
+  dependencies:
+    ansi-styles "^4.1.0"
+    supports-color "^7.1.0"
+
 character-entities-html4@^1.0.0:
   version "1.1.4"
   resolved "https://registry.yarnpkg.com/character-entities-html4/-/character-entities-html4-1.1.4.tgz#0e64b0a3753ddbf1fdc044c5fd01d0199a02e125"
@@ -5441,14 +5449,14 @@ grunt-legacy-util@~2.0.1:
     underscore.string "~3.3.5"
     which "~2.0.2"
 
-grunt-shell@3.0.1:
-  version "3.0.1"
-  resolved "https://registry.yarnpkg.com/grunt-shell/-/grunt-shell-3.0.1.tgz#24e783901543c7269980d534902bedfb94e7ec9f"
-  integrity sha512-C8eR4frw/NmIFIwSvzSLS4wOQBUzC+z6QhrKPzwt/tlaIqlzH35i/O2MggVOBj2Sh1tbaAqpASWxGiGsi4JMIQ==
+grunt-shell@4.0.0:
+  version "4.0.0"
+  resolved "https://registry.yarnpkg.com/grunt-shell/-/grunt-shell-4.0.0.tgz#9b04a18a59c3113f24391a3fb5625320538cbd1c"
+  integrity sha512-dHFy8VZDfWGYLTeNvIHze4PKXGvIlDWuN0UE7hUZstTQeiEyv1VmW1MaDYQ3X5tE3bCi3bEia1gGKH8z/f1czQ==
   dependencies:
-    chalk "^2.4.1"
+    chalk "^3.0.0"
     npm-run-path "^2.0.0"
-    strip-ansi "^5.0.0"
+    strip-ansi "^6.0.1"
 
 grunt-subgrunt@1.3.0:
   version "1.3.0"
@@ -6387,12 +6395,7 @@ isstream@~0.1.2:
   resolved "https://registry.yarnpkg.com/isstream/-/isstream-0.1.2.tgz#47e63f7af55afa6f92e1500e690eb8b8529c099a"
   integrity sha1-R+Y/evVa+m+S4VAOaQ64uFKcCZo=
 
-istanbul-lib-coverage@^3.0.0:
-  version "3.0.0"
-  resolved "https://registry.yarnpkg.com/istanbul-lib-coverage/-/istanbul-lib-coverage-3.0.0.tgz#f5944a37c70b550b02a78a5c3b2055b280cec8ec"
-  integrity sha512-UiUIqxMgRDET6eR+o5HbfRYP1l0hqkWOs7vNxC/mggutCMUIhWMm8gAHb8tHlyfD3/l6rlgNA5cKdDzEAf6hEg==
-
-istanbul-lib-coverage@^3.0.1:
+istanbul-lib-coverage@^3.0.0, istanbul-lib-coverage@^3.0.1:
   version "3.0.1"
   resolved "https://registry.yarnpkg.com/istanbul-lib-coverage/-/istanbul-lib-coverage-3.0.1.tgz#e8900b3ed6069759229cf30f7067388d148aeb5e"
   integrity sha512-GvCYYTxaCPqwMjobtVcVKvSHtAGe48MNhGjpK8LtVF8K0ISX7hCKl85LgtuaSneWVyQmaGcW3iXVV3GaZSLpmQ==
@@ -10209,7 +10212,7 @@ strip-ansi@^4.0.0:
   dependencies:
     ansi-regex "^3.0.0"
 
-strip-ansi@^5.0.0, strip-ansi@^5.1.0, strip-ansi@^5.2.0:
+strip-ansi@^5.1.0, strip-ansi@^5.2.0:
   version "5.2.0"
   resolved "https://registry.yarnpkg.com/strip-ansi/-/strip-ansi-5.2.0.tgz#8c9a536feb6afc962bdfa5b104a5091c1ad9c0ae"
   integrity sha512-DuRs1gKbBqsMKIZlrffwlug8MHkcnpjs5VPmL1PAh+mA30U0DTotfDZ0d2UUsXpPmPmMMJ6W773MaA3J+lbiWA==
