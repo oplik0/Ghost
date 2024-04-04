@@ -5,7 +5,7 @@ on:
       - '*'
 jobs:
   automate:
-    runs-on: ubuntu-18.04
+    runs-on: ubuntu-22.04
     env:
       RELEASE_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       RELEASE_NOTIFICATION_URL: ${{ secrets.RELEASE_NOTIFICATION_URL }}

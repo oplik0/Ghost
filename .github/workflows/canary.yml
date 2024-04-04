@@ -4,7 +4,7 @@ env:
   FORCE_COLOR: 1
 jobs:
   canary:
-    runs-on: ubuntu-18.04
+    runs-on: ubuntu-22.04
     name: Canary
     steps:
       - uses: actions/checkout@v2
